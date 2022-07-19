@@ -15,6 +15,23 @@ function ShoppingList() {
   }
   , []);
 
+  // Add function to handle updates
+  function handleUpdateItem(updatedItem) {
+    const updatedItems = items.map((item) => {
+      if (item.id === updatedItem.id) {
+        return updatedItem;
+      } else {
+        return item;
+      }
+    }
+    );
+    setItems(updatedItems);
+  }
+
+  function handleAddItem(newItem) {
+    setItems([...items, newItem]);
+  }
+
   function handleCategoryChange(category) {
     setSelectedCategory(category);
   }
@@ -27,14 +44,14 @@ function ShoppingList() {
 
   return (
     <div className="ShoppingList">
-      <ItemForm />
+      <ItemForm onAddItem={handleAddItem}/>
       <Filter
         category={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
       <ul className="Items">
         {itemsToDisplay.map((item) => (
-          <Item key={item.id} item={item} />
+          <Item key={item.id} item={item} onUpdateItem={handleUpdateItem} />
         ))}
       </ul>
     </div>
