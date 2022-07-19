@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-function ItemForm() {
+function ItemForm({ onAddItem }) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("Produce");
 
   // Add function to handle submissions
   function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page from refreshing
     const itemData = {
       name: name,
       category: category,
@@ -17,10 +17,10 @@ function ItemForm() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(itemData),
+      body: JSON.stringify(itemData), // Convert data to JSON
     })
     .then((res) => res.json())
-    .then((data) => console.log(data));
+    .then((data) => onAddItem(data));
   }
 
   return (
