@@ -15,6 +15,12 @@ function ShoppingList() {
   }
   , []);
 
+  // Callback function to handle the deletion of an item
+  function handleDeleteItem(deletedItem) {
+    const newItems = items.filter((item) => item.id !== deletedItem.id);
+    setItems(newItems);
+  }
+
   // Add function to handle updates
   function handleUpdateItem(updatedItem) {
     const updatedItems = items.map((item) => {
@@ -51,7 +57,11 @@ function ShoppingList() {
       />
       <ul className="Items">
         {itemsToDisplay.map((item) => (
-          <Item key={item.id} item={item} onUpdateItem={handleUpdateItem} />
+          <Item 
+            key={item.id} item={item} 
+            onUpdateItem={handleUpdateItem} 
+            onDeleteItem={handleDeleteItem}
+          />
         ))}
       </ul>
     </div>
